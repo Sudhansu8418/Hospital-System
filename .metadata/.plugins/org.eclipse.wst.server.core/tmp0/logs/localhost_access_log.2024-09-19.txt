@@ -1,0 +1,9 @@
+127.0.0.1 - - [19/Sep/2024:18:32:01 +0530] "GET / HTTP/1.1" 404 751
+0:0:0:0:0:0:0:1 - - [19/Sep/2024:18:32:03 +0530] "GET /Hospital_System/ HTTP/1.1" 200 6826
+0:0:0:0:0:0:0:1 - - [19/Sep/2024:18:32:03 +0530] "GET /Hospital_System/img/hos.jpg.jpg HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [19/Sep/2024:18:32:03 +0530] "GET /Hospital_System/img/hos2.jpg.jpg HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [19/Sep/2024:18:32:03 +0530] "GET /Hospital_System/img/hos3.jpg.jpg HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [19/Sep/2024:18:32:03 +0530] "GET /Hospital_System/img/doc4.jpg HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [19/Sep/2024:18:32:03 +0530] "GET /Hospital_System/img/doc2.jpg HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [19/Sep/2024:18:32:03 +0530] "GET /Hospital_System/img/doc3.jpg HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [19/Sep/2024:18:32:04 +0530] "GET /favicon.ico HTTP/1.1" 404 762

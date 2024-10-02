@@ -1,0 +1,41 @@
+package com.dao;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
+import com.entity.Appointment;
+public class AppointmentDao {
+	private Connection conn;
+
+	public AppointmentDao(Connection conn) {
+		super();
+		this.conn = conn;
+	}
+	public boolean addAppointment(Appointment ad) {
+		boolean f= false;
+		try {
+			String sql="insert into appoinment(user_id,fullname,gender,age,appoint_date,email,phoen,diseases,doctor_id,address,status) values(?,?,?,?,?,?,?,?,?,?,?)";
+			PreparedStatement ps=conn.prepareStatement(sql);
+			ps.setInt(1, ad.getId());
+			ps.setString(2, ad.getFullName());
+			ps.setString(2, ad.getGender());
+			ps.setString(2, ad.getAge());
+			ps.setString(2, ad.getAppointDate());
+			ps.setString(2, ad.getEmail());
+			ps.setString(2, ad.getPhoen());
+			ps.setString(2, ad.getDiseases());
+			ps.setInt(2, ad.getDoctorId());
+			ps.setString(2, ad.getAddress());
+			ps.setString(2, ad.getStatus());
+			
+			int i=ps.executeUpdate();
+			if(i==1) {
+				f=true;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return f;
+	}
+
+}

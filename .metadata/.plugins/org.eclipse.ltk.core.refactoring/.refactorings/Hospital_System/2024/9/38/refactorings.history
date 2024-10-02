@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete element from project &apos;Hospital_System&apos;&#x0D;&#x0A;- Original project: &apos;Hospital_System&apos;&#x0D;&#x0A;- Original element: &apos;Hospital_System/src/main/java/com.doctorServlet&apos;" description="Delete element" element1="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.doctorServlet" elements="1" flags="589830" id="org.eclipse.jdt.ui.delete" resources="0" stamp="1726753983397" subPackages="false" version="1.0"/>
+</session>

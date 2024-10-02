@@ -1,0 +1,50 @@
+package com.user_servlet;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.dao.AppointmentDao;
+import com.db.DbConnection;
+import com.entity.Appointment;
+@SuppressWarnings("serial")
+@WebServlet("/appointment")
+public class AppointmentServlet extends HttpServlet {
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	 int userId= Integer.parseInt(req.getParameter("userId"));
+	 String fullname=req.getParameter("fullname");
+	 String gender=req.getParameter("gender");
+	 String age=req.getParameter("age");
+	 String appoint_date=req.getParameter("appoint_date");
+	 String email=req.getParameter("email");
+	 String phoen=req.getParameter("phoen");
+	 String diseases=req.getParameter("diseases");
+	 int doctor_id=Integer.parseInt(req.getParameter("doctor_id"));
+	 String address=req.getParameter("address");
+	// String status=req.getParameter("status");
+	 // Set status to "pending" by default
+      String status = "pending";
+
+	 Appointment ap= new Appointment(userId, fullname, gender, age, appoint_date, email, phoen, diseases, doctor_id, address, status);
+	 AppointmentDao dao = new AppointmentDao(DbConnection.getConnection());
+     HttpSession session = req.getSession();
+
+     // Check if the appointment is successfully added
+     if (dao.addAppointment(ap)) {
+         session.setAttribute("succMsg", "Appointment booked successfully.");
+         resp.sendRedirect("userAppointment.jsp");  // Redirect to a success page
+     } else {
+         session.setAttribute("errorMsg", "Something went wrong. Please try again.");
+         resp.sendRedirect("userAppointment.jsp");
+	 }
+
+	}
+
+}

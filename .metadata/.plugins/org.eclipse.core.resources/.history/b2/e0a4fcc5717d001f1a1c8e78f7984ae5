@@ -1,0 +1,167 @@
+<%@page import="com.db.DbConnection"%>
+<%@page import="com.dao.DoctorDao"%>
+<%@page import="java.util.List"%>
+<%@page import="com.entity.Doctor"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Appointment Form</title>
+
+    <%@include file="component/allcss.jsp"%>
+    <style type="text/css">
+        .paint-card {
+            box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+
+        .backImg {
+            background: linear-gradient(rgba(0, 0, 0, .4), rgba(0, 0, 0, .4)),
+                url("img/background.jpg");
+            height: 20vh;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            margin-bottom: 0;
+        }
+
+        .doctor-image {
+            width: 70%;
+            height: auto;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+
+        .form-section {
+            margin: 0;
+            padding-top: 0;
+        }
+
+        .form-container {
+            background-color: #efecec;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        .form-container .form-control,
+        .form-container select,
+        .form-container textarea {
+            margin-bottom: 15px;
+        }
+
+        .btn-success {
+            margin-top: 20px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <%@include file="component/navbar.jsp"%>
+
+    <!-- Background Section -->
+    <div class="container-fluid backImg p-5">
+        <p class="text-center fs-2 text-white"></p>
+    </div>
+
+    <!-- Main Content Section -->
+    <div class="container">
+        <div class="row" style="margin-top: 0;">
+            <!-- Doctor Image Section with margin between form -->
+            <div class="col-md-6 p-3" style="padding-top: 0;">
+                <img alt="Doctor" src="img/doct.jpg" class="doctor-image">
+            </div>
+
+            <!-- Form Section -->
+            <div class="col-md-6 form-section">
+                <div class="card paint-card form-container">
+                    <div class="card-body">
+                        <p class="text-center fs-3">User Appointment</p>
+                        <c:if test="${not empty succMsg}">
+                            <p class="fs-4 text-center text-success">${succMsg}</p>
+                            <c:remove var="succMsg" scope="session" />
+                        </c:if>
+                        <c:if test="${not empty errorMsg}">
+                            <p class="fs-4 text-center text-danger">${errorMsg}</p>
+                            <c:remove var="errorMsg" scope="session" />
+                        </c:if>
+                        <form class="row g-3" action="YourServletURLHere" method="post">
+
+                            <input type="hidden" name="userId" value="${userObj.id}">
+
+                            <div class="col-md-6">
+                                <label for="inputFullname" class="form-label">Full Name</label>
+                                <input required type="text" class="form-control" name="fullname">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label>Gender</label>
+                                <select class="form-control" name="gender" required>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="inputAge" class="form-label">Age</label>
+                                <input required type="number" class="form-control" name="age">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="inputAppointmentDate" class="form-label">Appointment Date</label>
+                                <input required type="date" class="form-control" name="appointment_date">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="inputEmail" class="form-label">Email</label>
+                                <input required type="email" class="form-control" name="email">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="inputPhone" class="form-label">Phone No.</label>
+                                <input maxlength="10" required type="number" class="form-control" name="phone">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="inputDiseases" class="form-label">Diseases</label>
+                                <input required type="text" class="form-control" name="diseases">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="inputDoctor" class="form-label">Doctor</label>
+                                <select class="form-control" name="doct" required>
+                                    <option value="">..select..</option>
+                                    <%
+                                        DoctorDao dao = new DoctorDao(DbConnection.getConnection());
+                                		List<Doctor>list=dao.getAllDoctors();
+                                        for (Doctor d : list) {
+                                    %>
+                                    <option value="<%=d.getId()%>"><%=d.getName()%> {<%=d.getSpecialist()%>}</option>
+                                    <%
+                                        }
+                                    %>
+                                </select>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label for="inputAddress" class="form-label">Full Address</label>
+                                <textarea required name="address" class="form-control" rows="3"></textarea>
+                            </div>
+
+                            <c:if test="${ empty userObj}">
+                                <a href="login.jsp" class="btn btn-success">Submit</a>
+                            </c:if>
+                            <c:if test="${not empty userObj}">
+                                <button class="btn btn-success">Submit</button>
+                            </c:if>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%@include file="component/footer.jsp"%>
+</body>
+</html>
